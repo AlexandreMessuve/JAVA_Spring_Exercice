@@ -92,7 +92,7 @@ public class ProductService {
         }
         if (isDouble){
             double finalPrice = price;
-            list =  products.values().stream().filter(p -> p.getPrice() == finalPrice).toList();
+            list =  products.values().stream().filter(p -> p.getPrice() <= finalPrice).toList();
         }else{
             try {
                 Category category = Category.valueOf(search.toUpperCase());
