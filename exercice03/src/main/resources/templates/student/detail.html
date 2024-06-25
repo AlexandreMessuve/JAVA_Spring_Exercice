@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student detail</title>
+    <span th:replace="~{index :: bootstrap}"></span>
+</head>
+<body>
+<header>
+    <span th:replace="~{index :: navbar}"></span>
+</header>
+<main>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-titled" th:text="${student.lastname.toUpperCase() + ' ' + student.firstname.toUpperCase()}"></h1>
+                <hr />
+                <p class="card-text" th:text="${student.email}"></p>
+                <p class="card-text">BirthDate :
+                    <span th:text="${#temporals.format(student.birthDate, 'dd / MM / YYYY')}"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
