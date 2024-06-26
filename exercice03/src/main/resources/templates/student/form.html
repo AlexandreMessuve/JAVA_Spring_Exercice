@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Student Form</title>
+    <title>Student form</title>
+
     <span th:replace="~{index :: bootstrap}"></span>
 </head>
 <body>
@@ -10,29 +11,33 @@
   <span th:replace="~{index :: navbar}"></span>
 </header>
 <main>
-  <div class="container">
-    <h1>Register student</h1>
-    <form th:action="@{/students/add}" th:object="${student}" method="post">
+  <div class="container my-3">
+    <h1>Student form</h1>
+    <form th:action="@{/students/form}" th:object="${student}" method="post">
+      <input th:field="*{id}" hidden="hidden">
       <div>
         <label class="form-label" for="lastname">Lastname :</label>
         <input class="form-control" type="text" id="lastname" th:field="*{lastname}" required>
+        <span class="text-danger"  th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></span>
       </div>
       <div>
         <label class="form-label" for="firstname">Firstname :</label>
         <input class="form-control" type="text" id="firstname" th:field="*{firstname}" required>
+        <span class="text-danger"  th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></span>
       </div>
       <div>
         <label class="form-label" for="email">Email :</label>
         <input class="form-control" type="text" id="email" th:field="*{email}" required>
+        <span class="text-danger"  th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
       </div>
       <div>
         <label class="form-label" for="birthDate">Birth date :</label>
         <input class="form-control" type="date" id="birthDate" th:field="*{birthDate}" required>
+        <span class="text-danger" th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}"></span>
       </div>
       <div class="d-flex justify-content-center mx-3 my-3">
         <button class="btn btn-primary">Submit</button>
       </div>
-
     </form>
   </div>
 </main>

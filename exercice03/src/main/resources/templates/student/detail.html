@@ -19,6 +19,13 @@
                 <p class="card-text">BirthDate :
                     <span th:text="${#temporals.format(student.birthDate, 'dd / MM / YYYY')}"></span>
                 </p>
+                <p class="card-text">Age:
+                    <span th:text="${student.getAge()}"> year old</span>
+                </p>
+            </div>
+            <div class="card-footer d-flex justify-content-center">
+                <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-secondary">Edit</a>
+                <a onclick="return confirm('Are you sure ?')" th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>

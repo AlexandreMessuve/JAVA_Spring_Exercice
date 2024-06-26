@@ -15,6 +15,7 @@ public class StudentService {
     }
 
     public boolean addStudent(Student student) {
+        student.setId(UUID.randomUUID());
         if (students.containsKey(student.getId())) {
             return false;
         }
@@ -26,6 +27,14 @@ public class StudentService {
     }
     public List<Student> getAllStudents() {
         return students.values().stream().toList();
+    }
+
+    public boolean updateStudent(UUID id, Student student) {
+        if (!students.containsKey(id)) {
+            return false;
+        }
+        students.put(id, student);
+        return true;
     }
     public boolean removeStudent(UUID id) {
         if (!students.containsKey(id)) {

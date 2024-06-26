@@ -1,9 +1,11 @@
 package org.exercice03.controller;
 
+import jakarta.validation.Valid;
 import org.exercice03.model.Student;
 import org.exercice03.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,19 +46,42 @@ public class StudentController {
         return "student/form";
     }
 
+    @GetMapping("/students/edit/{id}")
+    public String edit(@PathVariable(name = "id") UUID id, Model model) {
+        Student student = studentService.getStudent(id);
+        if (student == null) {
+            return "redirect:/students";
+        }
+        model.addAttribute("student", student);
+        return "student/form";
+    }
+
     @GetMapping("/students/search")
     public String search(@RequestParam(name="lastname") String lastname ,Model model) {
         List<Student> students = studentService.getStudentByName(lastname);
         model.addAttribute("students", students);
         return "student/list";
     }
-    @PostMapping("/students/add")
-    public String add(@ModelAttribute("student") Student student) {
-        student.setId(UUID.randomUUID());
-        if (studentService.addStudent(student)){
-            return "redirect:/students";
+    @PostMapping("/students/form")
+    public String add(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "student/form";
         }else{
-            return "redirect:/students/add";
+            if (student.getId() != null) {
+                studentService.updateStudent(student.getId(), student);
+            }else {
+                studentService.addStudent(student);
+            }
+            return "redirect:/students";
+        }
+    }
+
+    @GetMapping("/students/delete/{id}")
+    public String delete(@PathVariable("id") UUID id) {
+        if (studentService.removeStudent(id)){
+            return "redirect:/students";
+        }else {
+            return "redirect:/";
         }
     }
 }
