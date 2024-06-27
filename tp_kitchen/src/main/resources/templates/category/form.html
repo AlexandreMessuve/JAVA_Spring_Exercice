@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Category Form</title>
+    <span th:replace="~{index :: bootstrap}"></span>
+    <link rel="stylesheet" th:href="@{/css/categoryForm.css}" />
+</head>
+<body>
+<header>
+    <span th:replace="~{index :: navbar}"></span>
+</header>
+<main class="container">
+    <h1 class="text-center m-3">Category form</h1>
+    <form th:action="@{/category/form}" th:object="${category}" method="post">
+        <input th:field="*{id}" hidden="hidden">
+        <div>
+            <label class="form-label" for="name">Name :</label>
+            <input class="form-control" type="text" id="name" th:field="*{name}" required>
+            <span class="text-danger"  th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        </div>
+        <div>
+            <label class="form-label" for="description">Description :</label>
+            <textarea id="description" class="form-control" th:field="*{description}" placeholder="Description here ...">
+            </textarea>
+            <span class="text-danger"  th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+        </div>
+        <div class="d-flex justify-content-center mx-3 my-3">
+            <button class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

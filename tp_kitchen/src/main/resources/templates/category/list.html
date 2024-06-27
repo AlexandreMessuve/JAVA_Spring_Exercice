@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+    <span th:replace="~{index :: bootstrap}"></span>
+</head>
+<body>
+<header>
+    <span th:replace="~{index :: navbar}"></span>
+</header>
+<main class="container">
+    <a class="btn btn-primary m-3" th:href="@{/category/add}">Add a category</a>
+    <div th:unless="${categories.isEmpty()}" class="d-flex justify-content-center flex-wrap">
+        <div th:each="category : ${categories}" class="card m-2" style="width: 20em;" th:id="${category.id}">
+            <div class="card-body">
+                <h1 class="card-title" th:text="${category.name}"></h1>
+                <hr />
+                <p class="card-text" th:text="${category.description}"></p>
+            </div>
+            <div class="card-footer d-flex justify-content-center">
+                <a class="btn btn-primary m-1" th:href="@{/category/detail(id=${category.id})}">Detail</a>
+                <a class="btn btn-info m-1" th:href="@{/category/edit(id=${category.id})}">Edit</a>
+                <a onclick="return confirm('Are you sure ?')" class="btn btn-danger m-1" th:href="@{/category/delete(id=${category.id})}">Delete</a>
+            </div>
+        </div>
+    </div>
+    <h1 th:if="${categories.isEmpty()}" class="text-center">No category</h1>
+</main>
+</body>
+</html>

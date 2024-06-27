@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe Form</title>
+    <span th:replace="~{index :: bootstrap}"></span>
+</head>
+<body>
+<header>
+    <span th:replace="~{index :: navbar}"></span>
+</header>
+<main class="container">
+    <h1 class="m-3 text-center">Recipe form</h1>
+    <form th:action="@{/recipe/form}" th:object="${recipe}" method="post">
+        <input th:field="*{id}" hidden="hidden">
+        <div>
+            <label class="form-label" for="name">Name :</label>
+            <input class="form-control" type="text" id="name" th:field="*{name}" required>
+            <span class="text-danger"  th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        </div>
+        <div>
+            <label class="form-label" for="ingredients">Ingredients :</label>
+            <div id="ingredients">
+                <div th:each="ingredient, iterStat : ${recipe.ingredients}">
+                    <input class="form-control mb-2" type="text" th:field="*{ingredients[__${iterStat.index}__]}">
+                </div>
+                <input th:if="${recipe.ingredients.isEmpty()}" class="form-control mb-2" type="text" th:field="*{ingredients[0]}" placeholder="Ingredient">
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="addInput('ingredients')">More ingredient ?</button>
+            <span class="text-danger"  th:if="${#fields.hasErrors('ingredients')}" th:errors="*{ingredients}"></span>
+        </div>
+        <div>
+            <label class="form-label" for="steps">Steps :</label>
+            <div id="steps">
+                <div th:each="step, iterStat : ${recipe.steps}">
+                    <input class="form-control mb-2" type="text" th:field="*{steps[__${iterStat.index}__]}">
+                </div>
+                <input th:if="${recipe.steps.isEmpty()}" class="form-control mb-2" type="text" th:field="*{steps[0]}" placeholder="Step">
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="addInput('steps')">More steps ?</button>
+            <span class="text-danger"  th:if="${#fields.hasErrors('steps')}" th:errors="*{steps}"></span>
+        </div>
+        <div>
+            <label class="form-label" for="category">Category :</label>
+            <select class="form-control" id="category" th:field="*{categoryId}">
+                <option selected th:value="${null}">Select category</option>
+                <option th:unless="${categories.isEmpty()}" th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+            </select>
+            <span class="text-danger"  th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
+        </div>
+        <div class="d-flex justify-content-center mx-3 my-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</main>
+
+<script type="text/javascript" th:src="@{/script/script.js}"></script>
+</body>
+</html>

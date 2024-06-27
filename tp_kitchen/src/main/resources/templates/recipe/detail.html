@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe detail</title>
+    <span th:replace="~{index :: bootstrap}"></span>
+</head>
+<body>
+<header>
+    <span th:replace="~{index :: navbar}"></span>
+</header>
+<main class="container">
+    <div class="d-flex justify-content-between align-content-center m-3">
+        <div>
+            <a class="btn btn-primary" th:href="@{/recipe/add}">Add a recipe</a>
+        </div>
+
+        <h1 class="text-center" th:text="${recipe.name}"></h1>
+        <div>
+            <a class="btn btn-info" th:href="@{/recipe/edit(id=${recipe.id})}">Edit</a>
+            <a onclick="return confirm('Are you sure ?')" class="btn btn-danger" th:href="@{/recipe/delete(id=${recipe.id})}">Delete</a>
+        </div>
+    </div>
+    <div>
+        <p>Category: <a class="link-underline-opacity-0 link-primary link-opacity-75-hover" th:href="@{/category/detail(id=${recipe.category.id})}"><span th:text="${recipe.category.name}"></span></a></p>
+        <p>Ingredients :</p>
+        <ul>
+            <li th:each="ingredient : ${recipe.ingredients}" th:text="${ingredient}"></li>
+        </ul>
+        <p>Steps : </p>
+        <ul>
+            <li th:each="step : ${recipe.steps}" th:text="${step}"></li>
+        </ul>
+    </div>
+</main>
+</body>
+</html>
