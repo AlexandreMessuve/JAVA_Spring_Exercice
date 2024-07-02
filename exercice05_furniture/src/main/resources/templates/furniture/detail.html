@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+    <span th:replace="~{home :: bootstrap}"></span>
+</head>
+<body>
+<header>
+    <span th:replace="~{home :: navbar}"></span>
+</header>
+<main class="container">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title" th:text="${furniture.name}"></h1>
+            <hr />
+            <h3>Description</h3>
+            <p class="card-text" th:text="${furniture.description}"></p>
+            <hr />
+            <div class="d-flex">
+                <p class="card-text">Stock: <span th:text="${furniture.stock}"></span></p>
+                <p class="card-text">Price: <span th:text="${furniture.price}"></span></p>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-between">
+                <a th:href="@{/update(id=${furniture.id})}" class="btn btn-secondary">Update</a>
+                <a th:href="${furniture.stock > 0} ? @{/cart/add(furnitureId=${furniture.id})} : null"
+                   th:attr="class=${furniture.stock > 0} ? 'btn btn-info' : 'btn btn-info disabled'"
+                   >
+                    Add to cart
+                </a>
+                <a onclick="return confirm('Are you sure ? ')" th:href="@{/delete(id=${furniture.id})}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

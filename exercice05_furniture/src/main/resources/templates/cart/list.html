@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <span th:replace="~{home :: bootstrap}"></span>
+</head>
+<body>
+<header>
+    <span th:replace="~{home :: navbar}"></span>
+</header>
+<main class="container">
+    <h1 class="m-3">Cart</h1>
+    <table class="table table-dark table-bordered table-striped" th:unless="${cartItems.isEmpty()}">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Quantity</th>
+            <th>Furniture</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="i : ${cartItems}">
+            <td th:text="${i.id}"></td>
+            <td class="d-flex justify-content-between">
+                <a th:href="@{/cart/remove/one(id=${i.id})}" class="btn btn-outline-danger">-1</a>
+                <span th:text="${i.quantity}"></span>
+                <a th:href="${i.furniture.stock > 0} ? @{/cart/add(furnitureId=${i.furniture.id})} : null"
+                   th:attr="class=${i.furniture.stock > 0} ? 'btn btn-outline-info' : 'btn btn-outline-info disabled'">
+                    +1
+                </a>
+            </td>
+            <td th:text="${i.furniture.name}"></td>
+            <td>
+                <a onclick="return confirm('Are you sure ? ')" th:href="@{cart/remove(id=${i.id})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                Total Cost <span th:text="${#ctx.session.get('totalCartPrice')}"></span></td>
+            <td>
+                <a onclick="return confirm('Are you sure ? ')" th:href="@{/cart/remove/all}" class="btn btn-outline-danger">Delete All</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h1 th:if="${cartItems.isEmpty()}">Empty Cart</h1>
+</main>
+</body>
+</html>
