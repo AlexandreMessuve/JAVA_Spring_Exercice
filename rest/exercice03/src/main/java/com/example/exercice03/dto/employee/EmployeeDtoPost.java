@@ -2,17 +2,16 @@ package com.example.exercice03.dto.employee;
 
 import com.example.exercice03.dto.person.PersonDtoPost;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class EmployeeDtoPost extends PersonDtoPost {
 
     @Pattern(regexp = "([0-9]+(-[0-9]+)+)", message = "Date of contract start is not valid")

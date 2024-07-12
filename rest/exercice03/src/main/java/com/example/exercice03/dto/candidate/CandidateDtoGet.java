@@ -2,6 +2,7 @@ package com.example.exercice03.dto.candidate;
 
 import com.example.exercice03.dto.person.PersonDtoGet;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class CandidateDtoGet extends PersonDtoGet {
     private int rating;
     private String skill;

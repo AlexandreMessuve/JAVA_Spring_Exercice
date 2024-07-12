@@ -2,6 +2,7 @@ package com.example.exercice03.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Employee extends Person {
     @Temporal(TemporalType.DATE)
     private LocalDate contractStart;

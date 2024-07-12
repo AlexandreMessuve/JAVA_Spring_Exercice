@@ -4,6 +4,7 @@ import com.example.exercice03.dto.person.PersonDtoGet;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class EmployeeDtoGet extends PersonDtoGet {
     private LocalDate contractStart;
 
