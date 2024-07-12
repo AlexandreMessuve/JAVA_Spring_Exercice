@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -24,4 +25,10 @@ public class Employee extends Person {
     private boolean admin;
 
     private double salary;
+
+    @OneToMany(mappedBy = "employee")
+    private List<Absence> absenceList;
+    @OneToMany(mappedBy = "employee")
+    private List<Vacancy> vacancyList;
+
 }
