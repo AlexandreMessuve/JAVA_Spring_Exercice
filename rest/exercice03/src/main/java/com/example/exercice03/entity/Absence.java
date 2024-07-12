@@ -20,6 +20,6 @@ public class Absence {
     private LocalDate date;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @Column(name = "employee_id")
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 }

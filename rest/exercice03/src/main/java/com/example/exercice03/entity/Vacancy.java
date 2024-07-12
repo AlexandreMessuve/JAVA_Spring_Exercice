@@ -21,5 +21,6 @@ public class Vacancy {
     private LocalDate endDate;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 }
