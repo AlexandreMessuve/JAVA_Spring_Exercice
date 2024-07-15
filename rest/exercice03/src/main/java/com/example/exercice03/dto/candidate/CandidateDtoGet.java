@@ -4,7 +4,7 @@ import com.example.exercice03.dto.person.PersonDtoGet;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -15,5 +15,5 @@ public class CandidateDtoGet extends PersonDtoGet {
     private int rating;
     private String skill;
     private String technicalArea;
-    private LocalDate jobInterviewDateStr;
+    private LocalDateTime jobInterviewDate;
 }
