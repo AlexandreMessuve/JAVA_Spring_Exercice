@@ -44,13 +44,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/contact").permitAll()
-                        .requestMatchers("/notices").permitAll()
+                        .requestMatchers("/auth/**", "/contact", "/notices").permitAll()
                         .requestMatchers("/my**").hasRole("USER")
                         .requestMatchers("/myBalance**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/create**").hasRole("ADMIN")
+                        .requestMatchers("/admin/**", "/create**").hasRole("ADMIN")
                 )
                 .addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
 
